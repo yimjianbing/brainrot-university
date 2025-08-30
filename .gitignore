@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Node/Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/pnpm-debug.log*
+frontend/coverage/
+
+# Python/Backend
+backend/.venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.coverage
+backend/coverage/
+backend/server.log
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Editors/IDE
+.vscode/
+.idea/
+
+# Optional: uncomment if you don't want to commit pyenv version file
+# backend/.python-version
+
+
