@@ -1,11 +1,10 @@
-import { root, useState, useCallback } from "@lynx-js/react";
-import { generateVideo } from './api.js'
-import { Header } from './components/Header.js'
-import { LinkInput } from './components/LinkInput.js'
-import { GenerateButton } from './components/GenerateButton.js'
-import { ResultPlayer } from './components/ResultPlayer.js'
+import { useState, useCallback, useEffect } from "@lynx-js/react";
+import { generateVideo } from './api.ts'
+import { Header } from './components/Header.tsx'
+import { LinkInput } from './components/LinkInput.tsx'
+import { GenerateButton } from './components/GenerateButton.tsx'
+import { ResultPlayer } from './components/ResultPlayer.tsx'
 import { HistoryTab } from './components/HistoryTab.tsx'
-import reactLynxLogo from "./assets/react-logo.png";
 
 
 export function App() {
@@ -14,6 +13,7 @@ export function App() {
   const [videoUrl, setVideoUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
 
   const onGenerate = useCallback(async () => {
     if (!link) return
@@ -33,8 +33,10 @@ export function App() {
 
   return (
     <view className='w-full h-full p-5 pt-20'>
-      <image src={reactLynxLogo} className="Logo--react" />
+      
       <Header title={'BrainRot University'} subtitle={'Turn Wikipedia into shortform'} />
+      
+
       <view className='w-full p-4 bg-white/10 border border-white/20 rounded-2xl'>
         <view className='h-2.5' />
         <LinkInput value={link} onChange={setLink} placeholder={'Paste a Wikipedia link'} />
@@ -45,17 +47,12 @@ export function App() {
         ) : null}
       </view>
 
+
       {videoUrl ? (
         <ResultPlayer videoUrl={videoUrl} />
       ) : null}
-
+      <ResultPlayer videoUrl='/final/final.mp4' />
       <HistoryTab />
     </view>
   )
-}
-
-root.render(<App />);
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept();
 }

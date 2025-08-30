@@ -1,4 +1,4 @@
-const API_BASE = 'http://127.0.0.1:5000/'
+export const API_BASE = 'http://127.0.0.1:5000/'
 
 export interface GenerateResponse {
   video_url?: string

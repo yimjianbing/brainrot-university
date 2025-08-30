@@ -9,6 +9,7 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/pnpm-debug.log*
 frontend/coverage/
+frontend/.env
 
 # Python/Backend
 backend/.venv/
@@ -20,6 +21,7 @@ backend/.mypy_cache/
 backend/.coverage
 backend/coverage/
 backend/server.log
+backend/.env
 
 # Env files
 .env

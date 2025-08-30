@@ -17,4 +17,12 @@ export default defineConfig({
     pluginTypeCheck(),
     pluginTailwindCSS(),
   ],
+  environments: {
+    web: {
+      output: {
+        assetPrefix: '/',
+      },
+    },
+    lynx: {},
+  },
 })
