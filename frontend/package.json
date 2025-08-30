@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "tiktok techjam",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -11,7 +11,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.112.4"
+    "@lynx-js/react": "^0.112.4",
+    "@lynx-js/tailwind-preset": "^0.2.0",
+    "rsbuild-plugin-tailwindcss": "^0.2.3",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
@@ -22,7 +25,7 @@
     "@lynx-js/types": "3.3.0",
     "@rsbuild/plugin-type-check": "1.2.4",
     "@testing-library/jest-dom": "^6.8.0",
-    "@types/react": "^18.3.23",
+    "@types/react": "^18.3.24",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
