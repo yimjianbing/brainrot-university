@@ -98,6 +98,17 @@ npm install
 npm run dev
 ```
 
+### Lynx Explorer (iOS Simulator)
+To view the dev build on iOS Simulator, set up Lynx Explorer using the official Quick Start:
+
+- Lynx Quick Start → iOS Simulator: [https://lynxjs.org/guide/start/quick-start.html#ios-simulator-platform=macos-arm64,explorer-platform=ios-simulator](https://lynxjs.org/guide/start/quick-start.html#ios-simulator-platform=macos-arm64,explorer-platform=ios-simulator)
+
+Summary of steps:
+- Install Xcode from the Mac App Store
+- Download the LynxExplorer app for your Mac architecture
+- Open Xcode → Open Developer Tool → Simulator, then drag the LynxExplorer app into the simulator
+- Start the frontend dev server (`npm run dev`) and either scan the terminal QR code or paste the bundle URL inside Lynx Explorer
+
 ## API
 ### Start generation (async)
 POST `/generate`
