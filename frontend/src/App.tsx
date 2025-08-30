@@ -4,8 +4,7 @@ import { Header } from './components/Header.tsx'
 import { LinkInput } from './components/LinkInput.tsx'
 import { GenerateButton } from './components/GenerateButton.tsx'
 import { ResultPlayer } from './components/ResultPlayer.tsx'
-import { HistoryTab } from './components/HistoryTab.tsx'
-
+import { AssetSelector } from './components/AssetSelector.tsx'
 
 
 export function App() {
@@ -14,6 +13,7 @@ export function App() {
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [qrUrl, setQrUrl] = useState<string | null>(null)
+  const [asset, setAsset] = useState('trump')
 
   const onGenerate = useCallback(async () => {
     if (!link) return
@@ -22,7 +22,7 @@ export function App() {
     setQrUrl(null)
     setSubmitting(true)
     try {
-      const res = await generateVideo(link)
+      const res = await generateVideo(link, asset)
       if (res.video_url) setVideoUrl(res.video_url)
       
       else setError(res.error || 'Video generation failed')
@@ -35,7 +35,7 @@ export function App() {
     } finally {
       setSubmitting(false)
     }
-  }, [link])
+  }, [link, asset])
 
   return (
     <view className='w-full h-full p-5 pt-20'>
@@ -46,6 +46,8 @@ export function App() {
       <view className='w-full p-4 bg-white/10 border border-white/20 rounded-2xl'>
         <view className='h-2.5' />
         <LinkInput value={link} onChange={setLink} placeholder={'Paste a Wikipedia link'} />
+        <view className='h-3' />
+        <AssetSelector value={asset} onChange={setAsset} />
         <view className='h-3' />
         <GenerateButton disabled={!link || submitting} loading={submitting} onPress={onGenerate} />
         {error ? (

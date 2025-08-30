@@ -6,11 +6,11 @@ export interface GenerateResponse {
   error?: string
 }
 
-export async function generateVideo(link: string): Promise<GenerateResponse> {
+export async function generateVideo(link: string, asset: string): Promise<GenerateResponse> {
   const response = await fetch(`${API_BASE}/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ link }),
+    body: JSON.stringify({ link, asset }),
   })
   if (!response.ok) {
     const text = await response.text().catch(() => '')
@@ -21,6 +21,7 @@ export async function generateVideo(link: string): Promise<GenerateResponse> {
 
 export interface GenerateRequestBody {
   link: string
+  asset: string
 }
 
 

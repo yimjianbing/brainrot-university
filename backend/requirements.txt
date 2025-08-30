@@ -13,3 +13,4 @@ redis
 python-dotenv>=1.0.1
 moviepy
 nltk>=3.9.1
+qrcode

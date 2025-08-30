@@ -9,7 +9,6 @@ WIKI_SUMMARY_BASE = "https://en.wikipedia.org/api/rest_v1/page/summary/"
 
 
 def _parse_wikipedia_title(source: str) -> str:
-    """Extract a Wikipedia page title from either a full URL or a raw title string.
 
     try:
         parsed = urlparse(source)
@@ -136,7 +135,7 @@ def save_data_to_txt(data, file_path):
     print(f"DATA SAVED! Output written to {file_path}")
 
 def save_llm_data_to_txt(llm_data, file_path):
-    """Save the list of [title, description] pairs from scrape_llm to a text file."""
+    
     with open(file_path, 'w', encoding='utf-8') as file:
         for i, (title, desc) in enumerate(llm_data, 1):
             file.write(f"--- Post {i} ---\n")

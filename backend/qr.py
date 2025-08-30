@@ -1,3 +1,6 @@
+import os
+import qrcode
+
 def generate_qr(url):
     os.makedirs('final', exist_ok=True)
     qr_png = os.path.join('final', 'final_qr.png')

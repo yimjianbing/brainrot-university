@@ -11,11 +11,11 @@ from image_overlay import *
 load_dotenv()
 
 
-asset_name = "griffin" #either trump, lebron, spongebob or griffin
+asset_name = "griffin" # either trump, lebron, spongebob or griffin (default)
 
 def main(wiki_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output_pre = 'texts/processed_output.txt', \
           final_output = 'texts/oof.txt',speech_final = 'audio/output_converted.wav', subtitle_path = 'texts/testing.ass', \
-            output_path_before_overlay = 'final/before_overlay.mp4', output_path = "final/final.mp4",speaker_wav=f"assets/{asset_name}.mp3", video_path = 'assets/subway.mp4'):
+            output_path_before_overlay = 'final/before_overlay.mp4', output_path = "final/final.mp4", speaker_wav=None, video_path = 'assets/subway.mp4'):
     print("L1: SCRAPING RIGHT NOW")
     if not llm:
         map_request = scrape(wiki_url)
@@ -30,7 +30,12 @@ def main(wiki_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output_p
     save_map_to_txt(map_request,scraped_url)
     # ## AUDIO CONVERSION 
     print("L2: AUDIO CONVERSION NOW (TAKES THE LONGEST)")
-    audio(scraped_url, speaker_wav = speaker_wav)
+    # Resolve speaker and asset folder from requested voice
+    from os.path import basename
+    current_speaker = speaker_wav if speaker_wav else f"assets/{asset_name}.mp3"
+    current_asset = basename(current_speaker).rsplit('.', 1)[0]
+
+    audio(scraped_url, speaker_wav = current_speaker)
     convert_audio('audio/output.wav',speech_final)
     
     # IMPORTANT PRE PROCESSING STUFF 
@@ -68,7 +73,7 @@ def main(wiki_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output_p
     ## NEW STEP: Adding image figures to bottom left of the image
     
     print("L5: IMAGE OVERLAY!!")
-    overlay_images_on_video(output_path_before_overlay, f"assets/{asset_name}", output_path, "texts/image_overlay.txt", timing_list)
+    overlay_images_on_video(output_path_before_overlay, f"assets/{current_asset}", output_path, "texts/image_overlay.txt", timing_list)
     
 
     print("DONE! SAVED AT " + output_path)
