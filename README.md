@@ -1,5 +1,14 @@
 # BrainRot University
 
+## Problem statement 
+In this modern era, many Gen-Z face the issue of spending too much time watching pointless ‘brainrot’ on social media. The endless scrolling has also led to shortening attention spans and more people needing multiple ways of stimulation to stay engaged.  Thus, we have created Brainrot University to enrich the average scrolling session by generating funny, yet educational videos in the format of those posted on popular apps like TikTok or Instagram.
+
+We opted to approach this problem like so, because BrainRot University delivers any information a user wants in short pockets of time, with easily digestible bits of information, which weaponises the shortcomings mentioned above for learning and understanding. 
+
+## Features 
+Our app allows users to generate short TikTok-style videos from Wikipedia links. By simply pasting a Wikipedia link, users can trigger the video generation process, after which the video is created featuring content from the entered Wikipedia link explained to users in an engaging meme format.
+
+
 Generate short-form “brainrot” videos from Wikipedia URLs. Frontend is a Lynx app (React-like) with Tailwind; backend is Flask with an async job flow, TTS, forced alignment, and image overlays.
 
 ## Features
@@ -44,6 +53,18 @@ npm install
 Notes:
 - If `python3.10` isn’t available, use your Python 3.10 path or pyenv to install 3.10.18.
 - If ffmpeg is missing, install it (see Prerequisites).
+
+### Configure environment (.env)
+Create `backend/.env` with the following variables (see `backend/.env.example`):
+
+```dotenv
+# Used for short, punchy summarization of Wikipedia content (optional but recommended)
+GROQ_API_KEY=your_groq_api_key_here
+
+# Absolute base URL that clients use to reach your backend (used in QR code)
+# For local dev on this machine:
+SERVER_URL=http://127.0.0.1:5000
+```
 
 ## Quick start (both apps)
 ```bash
@@ -144,4 +165,4 @@ GET `/generate/<job_id>`
 - Backend: `python server.py`
 
 ## License
-TBD
+TBD — replace with your chosen license (e.g., MIT/Apache-2.0). If you don’t intend to publish a license, remove this section and any LICENSE file.

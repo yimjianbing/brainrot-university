@@ -27,12 +27,12 @@ def _run_job(job_id: str, link: str, asset: str) -> None:
 
         video_filename = 'final.mp4'
         video_path = os.path.join('final', video_filename)
-        base = server_url or 'http://127.0.0.1:5000'
+        base = 'http://127.0.0.1:5000'
         if os.path.exists(video_path):
             qr_png = generate_qr(f"{base}/final/{video_filename}")
             result = {
                 'status': 'done',
-                'video_url': f"/final/{video_filename}",
+                'video_url': f"http://127.0.0.1:5000/final/{video_filename}",
             }
             if qr_png:
                 result['qr_url'] = f"/final/{os.path.basename(qr_png)}"
