@@ -13,6 +13,8 @@ def overlay_images_on_video(video_path, image_folder, output_path, text_path, ti
         text_path (str): Path to store the main text info
         timing_info (str): Path to store the timing info
     """
+    
+    print(image_folder)
     try:
         video_clip = VideoFileClip(video_path)
         video_duration = video_clip.duration

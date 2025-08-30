@@ -21,7 +21,9 @@ backend/.mypy_cache/
 backend/.coverage
 backend/coverage/
 backend/server.log
+backend/final/
 backend/.env
+backend/final/*.mp4
 
 # Env files
 .env

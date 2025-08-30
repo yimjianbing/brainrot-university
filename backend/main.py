@@ -11,19 +11,19 @@ from image_overlay import *
 load_dotenv()
 
 
-asset_name = "trump" #either trump, lebron, spongebob or griffin
+asset_name = "griffin" #either trump, lebron, spongebob or griffin
 
-def main(reddit_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output_pre = 'texts/processed_output.txt', \
+def main(wiki_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output_pre = 'texts/processed_output.txt', \
           final_output = 'texts/oof.txt',speech_final = 'audio/output_converted.wav', subtitle_path = 'texts/testing.ass', \
             output_path_before_overlay = 'final/before_overlay.mp4', output_path = "final/final.mp4",speaker_wav=f"assets/{asset_name}.mp3", video_path = 'assets/subway.mp4'):
     print("L1: SCRAPING RIGHT NOW")
     if not llm:
-        map_request = scrape(reddit_url)
+        map_request = scrape(wiki_url)
     else:
         print("Using LLM to determine best thread to scrape")
         print("-------------------")
-        reddit_scrape = scrape_llm(reddit_url)
-        text = vader(reddit_scrape)
+        wiki_scrape = scrape_llm(wiki_url)
+        text = vader(wiki_scrape)
         api = os.getenv('GROQ_API_KEY')
         map_request= groq(text, api) 
     print(map_request)
@@ -61,7 +61,7 @@ def main(reddit_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output
     print("L4: VIDEO GENERATION")
     convert_timing_to_ass(timing_list, subtitle_path)
 
-    ## Finally, we need to generate the brain rot video tself
+    ## Finally, we need to generate the brain rot video itself
     add_subtitles_and_overlay_audio(video_path,speech_final, subtitle_path, output_path_before_overlay)
 
 
@@ -72,7 +72,3 @@ def main(reddit_url, llm  = False, scraped_url = 'texts/scraped_url.txt', output
     
 
     print("DONE! SAVED AT " + output_path)
-
-# if __name__ == "__main__":
-    
-#     main("https://www.reddit.com/r/confessions/comments/1jt63ey/i_pooped_during_my_run_yesterday/")

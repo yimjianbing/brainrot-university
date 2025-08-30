@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "@lynx-js/react";
+import { useState, useCallback } from "@lynx-js/react";
 import { generateVideo } from './api.ts'
 import { Header } from './components/Header.tsx'
 import { LinkInput } from './components/LinkInput.tsx'
@@ -7,29 +7,35 @@ import { ResultPlayer } from './components/ResultPlayer.tsx'
 import { HistoryTab } from './components/HistoryTab.tsx'
 
 
+
 export function App() {
   const [link, setLink] = useState('')
-  const [isRedditThread, setIsRedditThread] = useState(false)
   const [videoUrl, setVideoUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
-
+  const [qrUrl, setQrUrl] = useState<string | null>(null)
 
   const onGenerate = useCallback(async () => {
     if (!link) return
     setError(null)
     setVideoUrl(null)
+    setQrUrl(null)
     setSubmitting(true)
     try {
-      const res = await generateVideo(link, isRedditThread)
+      const res = await generateVideo(link)
       if (res.video_url) setVideoUrl(res.video_url)
+      
       else setError(res.error || 'Video generation failed')
+
+      if (res.qr_url) setQrUrl(res.qr_url)
+      else setError(res.error || 'QR code generation failed')
+    
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to generate')
     } finally {
       setSubmitting(false)
     }
-  }, [link, isRedditThread])
+  }, [link])
 
   return (
     <view className='w-full h-full p-5 pt-20'>
@@ -47,12 +53,10 @@ export function App() {
         ) : null}
       </view>
 
-
       {videoUrl ? (
-        <ResultPlayer videoUrl={videoUrl} />
+        <ResultPlayer videoUrl={videoUrl} qrUrl={qrUrl} />
       ) : null}
-      <ResultPlayer videoUrl='/final/final.mp4' />
-      <HistoryTab />
+      
     </view>
   )
 }
