@@ -164,5 +164,3 @@ GET `/generate/<job_id>`
 - Frontend: `npm run dev`, `npm run build`
 - Backend: `python server.py`
 
-## License
-TBD — replace with your chosen license (e.g., MIT/Apache-2.0). If you don’t intend to publish a license, remove this section and any LICENSE file.
