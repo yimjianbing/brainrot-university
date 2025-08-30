@@ -1,3 +1,5 @@
+import qr from '../../backend/final/final_qr.png'
+
 export function ResultPlayer(props: { videoUrl: string; qrUrl?: string | null }) {
   const { videoUrl, qrUrl } = props
 
@@ -8,7 +10,7 @@ export function ResultPlayer(props: { videoUrl: string; qrUrl?: string | null })
         {qrUrl ? (
           <>
             <text className='text-black/85 mb-2'>QR Code</text>
-            <image src={qrUrl} className='w-40 h-40 rounded-xl bg-white' />
+            <image src={qr} className='w-40 h-40 rounded-xl bg-white' />
           </>
         ) : null}
         <text className='text-black/85 mb-2'>Link to video</text>

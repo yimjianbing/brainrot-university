@@ -1,10 +1,11 @@
 import { useState, useCallback } from "@lynx-js/react";
-import { generateVideo } from './api.ts'
+import { startGenerate, pollGenerateStatus } from './api.ts'
 import { Header } from './components/Header.tsx'
 import { LinkInput } from './components/LinkInput.tsx'
 import { GenerateButton } from './components/GenerateButton.tsx'
 import { ResultPlayer } from './components/ResultPlayer.tsx'
 import { AssetSelector } from './components/AssetSelector.tsx'
+import qr from '../../backend/final/final_qr.png'
 
 
 export function App() {
@@ -22,14 +23,25 @@ export function App() {
     setQrUrl(null)
     setSubmitting(true)
     try {
-      const res = await generateVideo(link, asset)
-      if (res.video_url) setVideoUrl(res.video_url)
-      
-      else setError(res.error || 'Video generation failed')
-
-      if (res.qr_url) setQrUrl(res.qr_url)
-      else setError(res.error || 'QR code generation failed')
-    
+      const start = await startGenerate(link, asset)
+      if (!start.job_id || !start.status_url) throw new Error('Failed to start job')
+      let status = start.status
+      let tries = 0
+      while (status === 'queued' || status === 'running') {
+        await new Promise(r => setTimeout(r, 2000))
+        const s = await pollGenerateStatus(start.status_url)
+        status = s.status
+        if (status === 'done') {
+          if (s.video_url) setVideoUrl(s.video_url)
+          if (s.qr_url) setQrUrl(s.qr_url)
+          break
+        }
+        if (status === 'error') {
+          throw new Error(s.error || 'Generation failed')
+        }
+        tries++
+        if (tries > 180) throw new Error('Timed out waiting for result')
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to generate')
     } finally {
@@ -54,7 +66,6 @@ export function App() {
           <text className='mt-2.5 text-[#ff8a80]'>{error}</text>
         ) : null}
       </view>
-
       {videoUrl ? (
         <ResultPlayer videoUrl={videoUrl} qrUrl={qrUrl} />
       ) : null}

@@ -64,7 +64,15 @@ echo "  Backend PID:  ${BACKEND_PID}"
 echo "  Frontend PID: ${FRONTEND_PID}"
 echo "\nPress Ctrl+C to stop both."
 
-# Wait for either to exit
-wait -n "$BACKEND_PID" "$FRONTEND_PID" || true
+# Wait for either process to exit (portable alternative to wait -n)
+while true; do
+  sleep 1
+  if ! ps -p "$BACKEND_PID" > /dev/null 2>&1; then
+    break
+  fi
+  if ! ps -p "$FRONTEND_PID" > /dev/null 2>&1; then
+    break
+  fi
+done
 
 
